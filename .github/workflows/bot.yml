@@ -19,9 +19,15 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - uses: browser-actions/setup-chrome@v1
+      - name: Install Chrome and matching ChromeDriver
+        uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
           install-chromedriver: true
+
+      - name: Install Chrome system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libx11-xcb1 libxcb-dri3-0 libdrm2 libgbm1 libasound2
 
       - run: python milo_bot.py
